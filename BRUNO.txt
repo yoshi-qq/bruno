@@ -1,0 +1,38 @@
+BRUNO
+
+(draw 4 skips a turn)
+
+Rules:
+- create draw pile
+- deal 7 cards per player
+- draw one card to discard pile (if black change color randomly)
+- Player Turn:
+	- if draw pile <= 0: move all but top card from discard to draw pile, shuffle draw pile
+	- display "BRUNO!" button
+	- card may be played if (match color or number) or color is black
+	- draw one card after certain timer
+	- check if "BRUNO!"-rule was broken (if so draw 2 cards)
+	- if player has no cards: win
+
+Scoring:
+- On win the winner gets all cards points left in other players hands
+- Numbers = number points
+- special cards = 20 points
+- wild cards = 50 points
+
+Assets:
+- Settings Icons:
+	- Gears ✅
+	- Slider ✅
+	- Toggle switch
+	- checklist circle and x
+	- clock icon
+	- players icon
+	- points/number icon
+
+- Special Cards:	
+	- Wild Swap Hands
+	- Wild Shuffle Hands
+	- 
+(- fading animation)
+- card skins

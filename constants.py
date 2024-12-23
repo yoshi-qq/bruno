@@ -1,5 +1,6 @@
 import os
 ROOT = os.path.dirname(os.path.abspath(__file__))
+print("Root", ROOT)
 RGB_COLORS = [(237, 28, 36), (80, 170, 68), (0, 114, 188), (255, 222, 22)]
 COLORS = ["red", "green", "blue", "yellow"]
 SPECIAL_COLOR = "black"

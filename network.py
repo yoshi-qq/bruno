@@ -1,11 +1,11 @@
 from dependencies import networking
-from collections import deque
 
 def initNetwork():
     global me
     me = None
 
 def sendClientsUpdate():
+    # TODO: find out how to handle messages sent from other clients via the networking library & add functions or a handler
     mainObject.sendAll(networking.Message(sender="host", type="updatePlayerList", content=mainObject.clients))
 
 networking.onConnect = sendClientsUpdate

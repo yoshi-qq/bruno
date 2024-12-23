@@ -1,12 +1,10 @@
-import visuals, menuing
+import visuals, menuing, roundHandler, cardHandler
 from collections import deque
 from card import Card
-from constants import COLORS, VALUES, SPECIAL_VALUES, SPECIAL_COLOR
+from constants import START_CARDS_AMOUNT
 from dependencies import pygame, graphy
 
 def initGameFunctions():
-    global deck
-    deck = createDeck()
     me = None
 
 def startGameFunctions():
@@ -27,10 +25,15 @@ def pygameEventHandler():
 
 
 def startGame(): # Starts a game with 2 to 4 players from the hosts machine
-    pass # TODO: make game playable
+    global deck, inGame
+    cardHandler.createDeck()
+    cardHandler.drawCardsToAllPlayers(START_CARDS_AMOUNT)
+    inGame = True
 
 def gameLoop():
     visuals.drawStack(deck)
+    visuals.drawHands()
+    roundHandler.startRound()
 
 def outerLoop(inGame): # Runs every frame
     pygameEventHandler()
@@ -40,13 +43,3 @@ def outerLoop(inGame): # Runs every frame
         gameLoop()
     
     visuals.endFrame()
-
-
-def createDeck():
-    newDeck = deque([])
-    for color in COLORS:
-        for value in VALUES:
-            if value in SPECIAL_VALUES:
-                color = SPECIAL_COLOR
-            newDeck.append(Card(color, value)) 
-    return newDeck

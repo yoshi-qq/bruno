@@ -20,6 +20,9 @@ def drawOpen(cards, size = 1):
         graphy.RenderImage(strName = f"deckCard{i}", imageName = card.renderObject, temporary = True, enabled = True, x = column*90*size, y = row*140*size, width = 82*size, height = 128*size)
         i+=1
 
+def drawHands():
+    pass # TODO: add functionality (recommended to finish playerHandler and cardHandler first)
+
 def drawHand(cards, show, x, y, size = 1):
     width = 300 * size
     hardWidth = 1/4

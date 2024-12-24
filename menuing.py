@@ -2,7 +2,7 @@ from varTypes import menuOperation
 from collections import deque
 from dependencies import graphy
 from card import Card
-from constants import RGB_COLORS
+from constants import RGB_COLORS, OWN_HAND_POSITION, OWN_HAND_SIZE
 import sys, socket
 import visuals, network, gameLogic
 
@@ -51,7 +51,7 @@ def drawMainMenu(operation: menuOperation):
             buttons[1].renderObject.arguments = ('localhost', 54322)
             buttons[2].renderObject.clickAction = settingsButton
             buttons[3].renderObject.clickAction = exitButton
-            visuals.drawHand(buttons, True, 960-150, 600, 3)
+            visuals.drawHand(buttons, True, OWN_HAND_POSITION[0], OWN_HAND_POSITION[1], OWN_HAND_SIZE)
         case menuOperation.CLOSE:
             for button in buttons:
                 button.remove()

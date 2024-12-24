@@ -1,15 +1,21 @@
 from dependencies import networking
+import playerHandler
 
 def initNetwork():
     global me
-    me = None
+    me = None # TODO: change from string to enum
+
+def addConnection(client):
+    playerHandler.addPlayer(client.name)
+
+def removeConnection(client):
+    playerHandler.playerLeft(client.name)
 
 def sendClientsUpdate():
-    # TODO: find out how to handle messages sent from other clients via the networking library & add functions or a handler
     mainObject.sendAll(networking.Message(sender="host", type="updatePlayerList", content=mainObject.clients))
 
-networking.onConnect = sendClientsUpdate
-networking.onDisconnect = sendClientsUpdate
+networking.onConnect = addConnection
+networking.onDisconnect = removeConnection
 
 def host(ip, port):
     global me, mainObject, menu, players
@@ -20,12 +26,8 @@ def join(ip, port):
     global me, mainObject, menu
     me = "player"
     mainObject = networking.Client(host = ip, port = port, dataSize = 2048, encoding = "pickle")
-    mainObject.messageFunctions["updatePlayerList"] = updatePlayerList
 
 def leave():
     global menu
     menu = "main" # TODO: move 1 line to menu logic
     mainObject.close()
-
-def updatePlayerList(clients):
-    mainObject.clients = clients

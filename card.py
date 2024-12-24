@@ -1,6 +1,12 @@
 from dependencies import graphy, pygame
 from functools import cache
 
+""" FIXME: 
+    split graphical card from the data saved in the player
+    - make a displayCard class thats used when trying to render the card inside visuals.py
+    - make a new Card class that only saves the card data as strings for the type and color
+"""
+
 class Card:
         def __init__(self, color, value, priority = 3, hoverable = False, hoverOffset = (5, -25, 1.2, 1)):
             self.color = color

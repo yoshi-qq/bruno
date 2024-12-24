@@ -30,7 +30,7 @@ class Server(): # Server-Klasse
             self.parent.threads.append(client_thread);
         
         def handleClient(self, conn, addr): # Skript welches einen spezifisches Client verwaltet
-            onConnect()
+            onConnect(self)
             print(f"Connected with {addr}");
             message = Message("server", "setName", self.name); # Befehl an Client um Namen zu setzen
             self.parent.send(conn, message); # §
@@ -48,7 +48,7 @@ class Server(): # Server-Klasse
             self.parent.unusedNames.append(self.name); # Namen zu Liste von verfügbaren Namen hinzufügen
             print(f"Disconnected {addr}");
             self.parent.clients.remove(self); # Client-Objekt auf Server-Seite löschen
-            onDisconnect()
+            onDisconnect(self)
             
     def __init__(self, host, port, dataSize, encoding = "json", maxConnections = 4, console = False):
         self.threads = []
@@ -237,11 +237,11 @@ def decode(encoded, type): # Dekodierung von Nachrichten
         message = pickle.loads(encoded);
         return message;
         
-def onConnect():
-    pass
+def onConnect(client):
+    print(f"{client.addr} - {client.name} connected")
 
-def onDisconnect():
-    pass
+def onDisconnect(client):
+    print(f"{client.addr} - {client.name} disconnected")
 
 if __name__ == '__main__': # Nur bei direktem Ausführen des Skripts verwendet
     server = Server('localhost', 54321, 1024, "pickle", 4, True); # Starten eines Test-Servers

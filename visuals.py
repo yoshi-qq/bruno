@@ -1,9 +1,11 @@
 from dependencies import graphy, pygame
-from constants import ROOT
+from constants import ROOT, OWN_HAND_POSITION, OWN_HAND_SIZE
+from varTypes import event, GameState
+from player import Player
 import os
 def initVisuals():
     global font
-    graphy.init(file = __file__, fps = 60, fontPath = os.path.join(ROOT, "font\\unifont.otf"),fullscreen = True, singleSizeOn = True, windowName = "brUNO", spriteFolder = "assets", windowIcon = "cardback")
+    graphy.init(file = __file__, fps = 60, fontPath = os.path.join(ROOT, "font\\unifont.otf"),fullscreen = False, singleSizeOn = True, windowName = "brUNO", spriteFolder = "assets", windowIcon = "cardback")
     graphy.postDraw = drawFPS
     font = pygame.font.Font(ROOT + "/font/fixed_sys.ttf", 30)
     
@@ -54,3 +56,13 @@ def drawFPS():
     
 def endFrame():
     graphy.draw()
+
+def displayEvent(event: event):
+    # TODO: display event animations
+    pass
+
+def drawFromPerspective(gameState: GameState, player: Player):
+     # TODO: add full drawing of everything
+    drawStack(gameState.deck)
+    drawHand(player.cards, True, OWN_HAND_POSITION[0], OWN_HAND_POSITION[1], OWN_HAND_SIZE)
+    drawHands()

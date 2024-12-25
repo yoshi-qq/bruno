@@ -16,7 +16,6 @@ def initGameFunctions():
 def startGameFunctions():
     global inGame, running
     running = True
-    inGame = False
     while running:
         outerLoop()
     pygame.quit()

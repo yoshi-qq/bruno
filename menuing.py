@@ -2,7 +2,7 @@ from varTypes import menuOperation
 from communicationHandler import initCommunication, gameState
 from dependencies import graphy
 from card import Card
-from constants import RGB_COLORS, OWN_HAND_POSITION, OWN_HAND_SIZE
+from constants import RGB_COLORS, OWN_HAND_POSITION, OWN_HAND_SIZE, DEFAULT_IP, DEFAULT_PORT
 import sys, socket
 import visuals, network, gameLogic
 
@@ -47,9 +47,9 @@ def drawMainMenu(operation: menuOperation):
                 Card("black", "exit", hoverable = True),
             ] 
             buttons[0].renderObject.clickAction = hostButton
-            buttons[0].renderObject.arguments = ('localhost', 54322)
+            buttons[0].renderObject.arguments = (DEFAULT_IP, DEFAULT_PORT)
             buttons[1].renderObject.clickAction = joinButton
-            buttons[1].renderObject.arguments = ('localhost', 54322)
+            buttons[1].renderObject.arguments = (DEFAULT_IP, DEFAULT_PORT)
             buttons[2].renderObject.clickAction = settingsButton
             buttons[3].renderObject.clickAction = exitButton
             visuals.drawHand(buttons, True, OWN_HAND_POSITION[0], OWN_HAND_POSITION[1], OWN_HAND_SIZE)

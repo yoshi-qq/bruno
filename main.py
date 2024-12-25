@@ -5,12 +5,15 @@ from visuals import initVisuals
 # Game functions
 import gameLogic as g
 
-def main(): # main function
+def init():
     initNetwork()
     initVisuals()
     g.initGameFunctions()
+
+def start(): # main function
     g.startGameFunctions()
 
 # Script
 if __name__ == '__main__':
-    main()
+    init()
+    start()

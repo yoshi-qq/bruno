@@ -21,6 +21,22 @@ class GameState:
         self.events: list[event] = []
         self.direction = 1
     
+    def generateRenders(self):
+        for card in self.deck:
+            card.generateRenderObject()
+        for player in self.players:
+            for card in player.cards:
+                card.generateRenderObject()
+        return self
+    
+    def removeRenders(self):
+        for card in self.deck:
+            card.removeRenderObject()
+        for player in self.players:
+            for card in player.cards:
+                card.removeRenderObject()
+        return self
+    
     def setTurn(self, id: str):
         self.turn = id
     

@@ -4,6 +4,8 @@ import json; # Kodierung von strings, integers
 import pickle; # Kodierung von komplexen Objekten und Datentypen
 import sys; # System zum Löschen von Zeilen in der Konsole
 
+onConnect = onDisconnect = lambda: None
+
 class Message(): # Nachrichten-Klasse bestehend aus Absender, Typ und Inhalt
     def __init__(self, sender, type, content):
             self.sender = sender; # bspw. Server, Client1, etc.
@@ -30,8 +32,8 @@ class Server(): # Server-Klasse
             self.parent.threads.append(client_thread);
         
         def handleClient(self, conn, addr): # Skript welches einen spezifisches Client verwaltet
-            onConnect(self)
             print(f"Connected with {addr}");
+            onConnect(self)
             message = Message("server", "setName", self.name); # Befehl an Client um Namen zu setzen
             self.parent.send(conn, message); # §
             while self.parent.on:
@@ -47,8 +49,8 @@ class Server(): # Server-Klasse
             conn.close(); # Verbindung beenden
             self.parent.unusedNames.append(self.name); # Namen zu Liste von verfügbaren Namen hinzufügen
             print(f"Disconnected {addr}");
-            self.parent.clients.remove(self); # Client-Objekt auf Server-Seite löschen
             onDisconnect(self)
+            self.parent.clients.remove(self); # Client-Objekt auf Server-Seite löschen
             
     def __init__(self, host, port, dataSize, encoding = "json", maxConnections = 4, console = False):
         self.threads = []
@@ -178,7 +180,7 @@ class Client(): # Client-Klasse
             print("Now receiving messages");
         while self.on:
             try:
-                self.server_socket.settimeout(1)
+                self.client_socket.settimeout(1)
                 try:
                     message = self.receive();
                     if message.type in self.messageFunctions: # Abgleich von Typ mit möglichen Funktionen
@@ -188,7 +190,7 @@ class Client(): # Client-Klasse
                     if self.debug > 1:
                         print(f"Executed {message.type} from {message.sender}");
                 except TimeoutError as e:
-                    return e
+                    pass
             except Exception as e:
                 if self.debug > 1:
                     print(e);
@@ -236,12 +238,7 @@ def decode(encoded, type): # Dekodierung von Nachrichten
     elif type == "pickle":
         message = pickle.loads(encoded);
         return message;
-        
-def onConnect(client):
-    print(f"{client.addr} - {client.name} connected")
 
-def onDisconnect(client):
-    print(f"{client.addr} - {client.name} disconnected")
 
 if __name__ == '__main__': # Nur bei direktem Ausführen des Skripts verwendet
     server = Server('localhost', 54321, 1024, "pickle", 4, True); # Starten eines Test-Servers

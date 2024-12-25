@@ -1,11 +1,11 @@
-import visuals, menuing, roundHandler, cardHandler, network, communicationHandler
+import visuals, menuing, roundHandler, cardHandler, network, playerHandler
 from collections import deque
 from card import Card
 from player import Player
 from constants import START_CARDS_AMOUNT, PENALTY_CARD_AMOUNT
 from dependencies import pygame, graphy
-from roundHandler import gameState
-from playerHandler import players
+from communicationHandler import getGameState
+from playerHandler import getPlayers
 
 running = False
 inGame = False
@@ -34,24 +34,25 @@ def pygameEventHandler():
 def startGame(): # Starts a game with 2 to 4 players from the hosts machine
     global deck, inGame
     cardHandler.initDeck()
-    roundHandler.initGameState(players, cardHandler.deck)
-    cardHandler.drawCardsToAllPlayers(players, START_CARDS_AMOUNT)
+    cardHandler.drawCardsToAllPlayers(getPlayers(), START_CARDS_AMOUNT)
+    roundHandler.initGameState(getPlayers(), cardHandler.deck)
     inGame = True
 
 def gameLoop():
     if network.me == "host":
         roundHandler.startTurn()
     else:
-        visuals.drawFromPerspective(gameState, next((player for player in players if player.id == network.mainObject.name), None))
+        visuals.drawFromPerspective(getGameState(), next((player for player in getPlayers() if player.id == network.mainObject.name)))
 
 def outerLoop(): # Runs every frame
-    global inGame
+    global inGame, currentMenu
     pygameEventHandler()
     menuing.displayMenu()
     
     if inGame:
         gameLoop()
-    elif gameState is not None:
+    elif getGameState() is not None:
+        currentMenu = "game"
         inGame = True
     
     

@@ -1,5 +1,5 @@
 from varTypes import menuOperation
-from communicationHandler import initCommunication, gameState
+from communicationHandler import initCommunication
 from dependencies import graphy
 from card import Card
 from constants import RGB_COLORS, OWN_HAND_POSITION, OWN_HAND_SIZE, DEFAULT_IP, DEFAULT_PORT

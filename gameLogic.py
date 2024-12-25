@@ -1,8 +1,5 @@
-import visuals, menuing, roundHandler, cardHandler, network, playerHandler
-from collections import deque
-from card import Card
-from player import Player
-from constants import START_CARDS_AMOUNT, PENALTY_CARD_AMOUNT
+import visuals, menuing, roundHandler, cardHandler, network
+from constants import START_CARDS_AMOUNT
 from dependencies import pygame, graphy
 from communicationHandler import getGameState
 from playerHandler import getPlayers

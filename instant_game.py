@@ -1,6 +1,5 @@
 import subprocess
 import atexit
-import time
 
 processes = []
 

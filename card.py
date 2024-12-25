@@ -1,8 +1,9 @@
 from dependencies import graphy, pygame
+from constants import CARD_HOVER_OFFSET
 from functools import cache
 
 class Card:
-        def __init__(self, color, value, priority = 3, hoverable = False, hoverOffset = (5, -25, 1.2, 1)):
+        def __init__(self, color, value, priority = 3, hoverable = False, hoverOffset = CARD_HOVER_OFFSET):
             self.color = color
             self.value = value
             self.renderObject = graphy.RenderButton(surface = graphy.screen, strName = f"card|{color}|{value}", imageName = self.createCardSurface(), priority = priority)
@@ -12,9 +13,14 @@ class Card:
                 self.renderObject.unHoverAction = self.renderObject.offset
                 self.renderObject.unHoverArguments = (0, 0, 1, 0)
         
-        def generateRenderObject(self):
+        def generateRenderObject(self, hoverable = False, hoverOffset = CARD_HOVER_OFFSET):
             self.renderObject = graphy.RenderButton(surface = graphy.screen, strName = f"card|{self.color}|{self.value}", imageName = self.createCardSurface(), priority = 3)
-        
+            if hoverable:
+                self.renderObject.hoverAction = self.renderObject.offset
+                self.renderObject.hoverArguments = (hoverOffset[0], hoverOffset[1], hoverOffset[2], hoverOffset[3])
+                self.renderObject.unHoverAction = self.renderObject.offset
+                self.renderObject.unHoverArguments = (0, 0, 1, 0)
+
         def removeRenderObject(self):
             del self.renderObject
         

@@ -21,12 +21,12 @@ class GameState:
         self.events: list[event] = []
         self.direction = 1
     
-    def generateRenders(self):
+    def generateRenders(self, perspectivePlayerName: str | None = None):
         for card in self.deck:
             card.generateRenderObject()
         for player in self.players:
             for card in player.cards:
-                card.generateRenderObject()
+                card.generateRenderObject(hoverable = (perspectivePlayerName == player.id or perspectivePlayerName == None))
         return self
     
     def removeRenders(self):

@@ -24,7 +24,7 @@ def setGameState(sender: str, content: GameState):
     for event in content.events:
         visuals.displayEvent(event)
         content.resolveEvent(event)
-    gameState = content.generateRenders()
+    gameState = content.generateRenders(network.mainObject.name)
     setPlayers(gameState.players)
     if gameState.turn == network.mainObject.name: # check if it's this players turn locally
         pass # TODO: allow card play events now

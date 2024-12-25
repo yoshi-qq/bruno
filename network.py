@@ -1,4 +1,5 @@
 from dependencies import networking
+from communicationHandler import initCommunication
 import playerHandler
 
 def initNetwork():

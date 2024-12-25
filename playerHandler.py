@@ -2,6 +2,13 @@ from player import Player
 
 players: list[Player] = []
 
+def getPlayers() -> list[Player]:
+    return players
+
+def setPlayers(newPlayers: list[Player]) -> None:
+    global players
+    players = newPlayers
+
 def initPlayerList():
     global players
     players.clear()

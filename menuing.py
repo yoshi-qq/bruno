@@ -1,5 +1,5 @@
 from varTypes import menuOperation
-from collections import deque
+from communicationHandler import initCommunication, gameState
 from dependencies import graphy
 from card import Card
 from constants import RGB_COLORS, OWN_HAND_POSITION, OWN_HAND_SIZE
@@ -14,12 +14,13 @@ def hostButton(ip, port):
     global currentMenu
     network.host(ip, port)
     currentMenu = "lobby"
-    players = [] # TODO: move to game logic (or alternatively lobby logic?)
+    initCommunication("host")
 
 def joinButton(ip, port):
     global currentMenu
     network.join(ip, port)
     currentMenu = "lobby"
+    initCommunication("player")
 
 def settingsButton():
     global currentMenu
@@ -60,7 +61,7 @@ def drawMainMenu(operation: menuOperation):
             pass
 
 def drawLobbyMenu(operation: menuOperation):
-    global buttons
+    global buttons, currentMenu
     match operation:
         case menuOperation.OPEN:
             buttons = []
@@ -86,13 +87,14 @@ def drawLobbyMenu(operation: menuOperation):
                     buttons.append(banner := graphy.RenderTextButton(x = graphy.middle[0], color = RGB_COLORS[i], borderColor = (0, 0, 0), textColor = (0, 0, 0), y = 200 + i * 150, width = 800, height = 80, middle = True, text = f"{ip}:{port}", temporary = True))
                     buttons.append(playerNumbers := graphy.RenderTextButton(drawType = "circ", x = banner.x - banner.width//(3/2) - 100, y = banner.y, text = str(i+1), color = RGB_COLORS[i], borderColor = (0, 0, 0), textColor = (0, 0, 0), width = banner.height*1.2, height = banner.height*1.2, middle = True, temporary = True))
             else:
-                if hasattr(network.mainObject, 'clients'): # TODO: 1. find out what this does 2. move it to network and replace this with an adequately named function
-                    for i, client in enumerate(network.mainObject.clients):
-                        ip, port = client.conn.getpeername()
+                pass
+                # if hasattr(network.mainObject, 'clients'): # TODO: 1. find out what this does 2. move it to network and replace this with an adequately named function
+                #     for i, client in enumerate(network.mainObject.clients):
+                #         ip, port = client.conn.getpeername()
 
-                        buttons.append(banner := graphy.RenderTextButton(x = graphy.middle[0], color = RGB_COLORS[i], borderColor = (0, 0, 0), textColor = (0, 0, 0), y = 200 + i * 150, width = 800, height = 80, middle = True, text = f"{ip}:{port}", temporary = True))
-                        buttons.append(playerNumbers := graphy.RenderTextButton(drawType = "circ", x = banner.x - banner.width//(3/2) - 100, y = banner.y, text = str(i+1), color = RGB_COLORS[i], borderColor = (0, 0, 0), textColor = (0, 0, 0), width = banner.height*1.2, height = banner.height*1.2, middle = True, temporary = True))
-
+                #         buttons.append(banner := graphy.RenderTextButton(x = graphy.middle[0], color = RGB_COLORS[i], borderColor = (0, 0, 0), textColor = (0, 0, 0), y = 200 + i * 150, width = 800, height = 80, middle = True, text = f"{ip}:{port}", temporary = True))
+                #         buttons.append(playerNumbers := graphy.RenderTextButton(drawType = "circ", x = banner.x - banner.width//(3/2) - 100, y = banner.y, text = str(i+1), color = RGB_COLORS[i], borderColor = (0, 0, 0), textColor = (0, 0, 0), width = banner.height*1.2, height = banner.height*1.2, middle = True, temporary = True))
+                    
 def drawGameMenu(operation: menuOperation):
     global buttons, background
     match operation:

@@ -4,6 +4,8 @@ import json; # Kodierung von strings, integers
 import pickle; # Kodierung von komplexen Objekten und Datentypen
 import sys; # System zum Löschen von Zeilen in der Konsole
 
+onConnect = onDisconnect = lambda: None
+
 class Message(): # Nachrichten-Klasse bestehend aus Absender, Typ und Inhalt
     def __init__(self, sender, type, content):
             self.sender = sender; # bspw. Server, Client1, etc.
@@ -31,6 +33,7 @@ class Server(): # Server-Klasse
         
         def handleClient(self, conn, addr): # Skript welches einen spezifisches Client verwaltet
             print(f"Connected with {addr}");
+            onConnect(self)
             message = Message("server", "setName", self.name); # Befehl an Client um Namen zu setzen
             self.parent.send(conn, message); # §
             while self.parent.on:
@@ -46,6 +49,7 @@ class Server(): # Server-Klasse
             conn.close(); # Verbindung beenden
             self.parent.unusedNames.append(self.name); # Namen zu Liste von verfügbaren Namen hinzufügen
             print(f"Disconnected {addr}");
+            onDisconnect(self)
             self.parent.clients.remove(self); # Client-Objekt auf Server-Seite löschen
             
     def __init__(self, host, port, dataSize, encoding = "json", maxConnections = 4, console = False):
@@ -234,7 +238,7 @@ def decode(encoded, type): # Dekodierung von Nachrichten
     elif type == "pickle":
         message = pickle.loads(encoded);
         return message;
-        
+
 
 if __name__ == '__main__': # Nur bei direktem Ausführen des Skripts verwendet
     server = Server('localhost', 54321, 1024, "pickle", 4, True); # Starten eines Test-Servers

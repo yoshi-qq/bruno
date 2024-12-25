@@ -1,16 +1,21 @@
-import network, visuals, roundHandler
-from playerHandler import players
+import network, visuals
+from playerHandler import getPlayers, setPlayers
 from networking import Message
 from varTypes import GameState
 from card import Card
 
-gameState = False
+gameState = None
+response = None
+
+def getGameState():
+    return gameState
 
 # HOST Functions
 def playCard(sender: str, content: Card):
-    if ((senderPlayer := next((player for player in players if player.id == sender), None)) is not None) and senderPlayer.id == gameState.turn:
+    global response
+    if ((senderPlayer := next((player for player in getPlayers() if player.id == sender), None)) is not None) and senderPlayer.id == gameState.turn:
         if isinstance(content, Card):
-            roundHandler.response = Card
+            response = Card
         
 
 # PLAYER Functions
@@ -19,7 +24,8 @@ def setGameState(sender: str, content: GameState):
     for event in content.events:
         visuals.displayEvent(event)
         content.resolveEvent(event)
-    gameState = content
+    gameState = content.generateRenders()
+    setPlayers(gameState.players)
     if gameState.turn == network.mainObject.name: # check if it's this players turn locally
         pass # TODO: allow card play events now
     else:
@@ -30,7 +36,8 @@ def updatePlayerList(clients):
 
 
 hostFunctions = {
-    "playCard": playCard
+    "playCard": playCard,
+    "setGameState": setGameState,
 }
 
 playerFunctions = {
@@ -46,6 +53,4 @@ def initCommunication(me: str):
             network.mainObject.messageFunctions.update(playerFunctions)
 
 def broadcastGameState(gameState: GameState):
-    network.mainObject.sendAll(Message(sender="host", type="setGameState", content=gameState))
-
-
+    network.mainObject.sendAll(Message(sender="host", type="setGameState", content=gameState.removeRenders()))

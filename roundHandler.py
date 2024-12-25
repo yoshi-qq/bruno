@@ -3,21 +3,18 @@ from collections import deque
 from card import Card
 from time import time as now, sleep
 from player import Player
-from playerHandler import players
+from playerHandler import getPlayers
 from varTypes import GameState
-from communicationHandler import broadcastGameState
+from communicationHandler import broadcastGameState, gameState
+import communicationHandler
 from constants import MAX_TURN_LENGTH, PENALTY_CARD_AMOUNT
 # TODO: add cardHandler and playerHandler first
-
-response = None
-gameState = None
 
 def initGameState(players: list[Player], deck: deque[Card]):
     global gameState
     gameState = GameState(players, deck)
 
 def startTurn():
-    global response
     # TODO: add full turn functionality
     currentIndex = gameState.turnOrder.index(gameState.turn)
     newIndex = (currentIndex + gameState.direction) % len(gameState.turnOrder)
@@ -25,15 +22,15 @@ def startTurn():
     broadcastGameState(gameState)
     # (2. check if special cards are active)
     turnStartTime = now()
-    response = None
+    communicationHandler.response = None
     turn_done = False
     while now() <= turnStartTime + MAX_TURN_LENGTH and turn_done == False:
         sleep(0.1)
-        if response is not None:
-            playerPlaysCard(gameState.turn, response)
+        if communicationHandler.response is not None:
+            playerPlaysCard(gameState.turn, communicationHandler.response)
             turn_done = True
     if turn_done == False:
-        timeOutPenalty(next((player for player in players if player.id == gameState.turn), None))
+        timeOutPenalty(next((player for player in getPlayers() if player.id == gameState.turn), None))
     
     # 4. check if the player has 1 card and not pressed the brUNO button
     # 5. check if game is over -> update game state

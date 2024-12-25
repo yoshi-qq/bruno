@@ -1,13 +1,26 @@
 import os
 ROOT = os.path.dirname(os.path.abspath(__file__))
+# DESIGN
 RGB_COLORS = [(237, 28, 36), (80, 170, 68), (0, 114, 188), (255, 222, 22)]
 COLORS = ["red", "green", "blue", "yellow"]
 SPECIAL_COLOR = "black"
+
+# CARDS
 VALUES = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "switch", "skip", "plus2", "colors", "plus4"]
 SPECIAL_VALUES = ["colors", "plus4"]
+
+# RULES
 START_CARDS_AMOUNT = 7
 MAX_TURN_LENGTH = 30 # in seconds
 PENALTY_CARD_AMOUNT = 2
+
+# HANDS VISUALS
+CARD_BACK_ASSET = "cardback"
+CARD_BASE_WIDTH = 300
+HAND_BASE_HARD_WIDTH = 1/4
+HAND_BASE_SOFT_WIDTH = 1/6
 OWN_HAND_POSITION = (960-150, 600)
 OWN_HAND_SIZE = 3
-OTHER_HANDS_SIZE = 1
+OTHER_HANDS_POSITIONS = [(960-150, 0), (960-150, 600), (960-150, 600)] # TODO: add values especially for player 2 and 3
+OTHER_HANDS_SIZES = (2, 2, 2)
+

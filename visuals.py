@@ -1,7 +1,9 @@
 from dependencies import graphy, pygame
-from constants import ROOT, OWN_HAND_POSITION, OWN_HAND_SIZE
+from constants import ROOT, CARD_BACK_ASSET, CARD_BASE_WIDTH, HAND_BASE_HARD_WIDTH, HAND_BASE_SOFT_WIDTH, OWN_HAND_POSITION, OWN_HAND_SIZE, OTHER_HANDS_POSITIONS, OTHER_HANDS_SIZES
 from varTypes import event, GameState
+from card import Card
 from player import Player
+from playerHandler import getPlayers
 import os
 def initVisuals():
     global font
@@ -22,13 +24,18 @@ def drawOpen(cards, size = 1):
         graphy.RenderImage(strName = f"deckCard{i}", imageName = card.renderObject, temporary = True, enabled = True, x = column*90*size, y = row*140*size, width = 82*size, height = 128*size)
         i+=1
 
-def drawHands():
-    pass # TODO: add functionality (recommended to finish playerHandler and cardHandler first)
+def drawHands(players: list[Player]):
+    # TODO: add functionality (recommended to finish playerHandler and cardHandler first)
+    for i, player in enumerate(players):
+        drawHand(player.cards, False, OTHER_HANDS_POSITIONS[i][0], OTHER_HANDS_POSITIONS[i][1], OTHER_HANDS_SIZES[i])
 
-def drawHand(cards, show, x, y, size = 1):
-    width = 300 * size
-    hardWidth = 1/4
-    softWidth = len(cards)/6
+def drawOwnHand(cards: list[Card]):
+    drawHand(cards, True, OWN_HAND_POSITION[0], OWN_HAND_POSITION[1], OWN_HAND_SIZE)
+
+def drawHand(cards: list[Card], show, x, y, size = 1):
+    width = CARD_BASE_WIDTH * size
+    hardWidth = HAND_BASE_HARD_WIDTH
+    softWidth = len(cards) * HAND_BASE_SOFT_WIDTH
     if softWidth > 1:
         softWidth = 1
     width = width*hardWidth + width*(1-hardWidth)*softWidth
@@ -46,7 +53,7 @@ def drawHand(cards, show, x, y, size = 1):
             card.renderObject.image = card.createCardSurface()
             card.renderObject.update()
         else:
-            card.renderObject.image = graphy.assets["cardback"]
+            card.renderObject.image = graphy.sprites[CARD_BACK_ASSET][0]
             card.renderObject.update()
         i += 1
         
@@ -64,5 +71,5 @@ def displayEvent(event: event):
 def drawFromPerspective(gameState: GameState, player: Player):
      # TODO: add full drawing of everything
     drawStack(gameState.deck)
-    drawHand(player.cards, True, OWN_HAND_POSITION[0], OWN_HAND_POSITION[1], OWN_HAND_SIZE)
-    drawHands()
+    drawOwnHand(player.cards)
+    drawHands([playerX for playerX in getPlayers() if playerX != player])

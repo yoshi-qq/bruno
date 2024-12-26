@@ -1,8 +1,8 @@
-from ..utils import network as network
-from ..utils import visuals
-from ..handlers.playerHandler import getPlayers, setPlayers
-from ..dependencies.networking import Message
-from ..types.varTypes import GameState, Request
+from code.utils import network as network
+from code.utils import visuals
+from code.handlers.playerHandler import getPlayers, setPlayers
+from code.dependencies.networking import Message
+from code.types.varTypes import GameState, Request
 
 gameState = None
 requests = []

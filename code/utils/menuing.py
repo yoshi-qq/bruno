@@ -1,11 +1,11 @@
-from ..types.varTypes import menuOperation
-from ..handlers.communicationHandler import initCommunication
-from ..utils.dependencies import graphy
-from ..types.card import Card
-from ..config.constants import RGB_COLORS, OWN_HAND_POSITION, OWN_HAND_SIZE, DEFAULT_IP, DEFAULT_PORT
-from ..utils import visuals
-from ..utils import network
-from ..utils import gameLogic
+from code.types.varTypes import menuOperation
+from code.handlers.communicationHandler import initCommunication
+from code.utils.dependencies import graphy
+from code.types.card import Card
+from code.config.constants import RGB_COLORS, OWN_HAND_POSITION, OWN_HAND_SIZE, DEFAULT_IP, DEFAULT_PORT
+from code.utils import visuals
+from code.utils import network
+from code.utils import gameLogic
 import sys, socket
 
 lastMenu: str = None

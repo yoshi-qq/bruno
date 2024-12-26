@@ -1,9 +1,9 @@
-from ..utils.dependencies import graphy, pygame
-from ..config.constants import ROOT, CARD_WIDTH, CARD_HEIGHT, CARD_BACK_ASSET, CARD_BASE_WIDTH, HAND_BASE_HARD_WIDTH, HAND_BASE_SOFT_WIDTH, OWN_HAND_POSITION, OWN_HAND_SIZE, OWN_HAND_ANGLE, OWN_HAND_CARD_SPACING, OTHER_HANDS_POSITIONS, OTHER_HANDS_SIZES, OTHER_HANDS_ANGLES, OTHER_HANDS_CARD_SPACING, STACK_SIZES, STACK_ANGLES, STACK_POSITIONS, STACK_CARD_DISTANCES
-from ..types.varTypes import Event, GameState
-from ..types.card import Card
-from ..types.player import Player
-from ..handlers.playerHandler import getPlayers
+from code.utils.dependencies import graphy, pygame
+from code.config.constants import ROOT, CARD_WIDTH, CARD_HEIGHT, CARD_BACK_ASSET, CARD_BASE_WIDTH, HAND_BASE_HARD_WIDTH, HAND_BASE_SOFT_WIDTH, OWN_HAND_POSITION, OWN_HAND_SIZE, OWN_HAND_ANGLE, OWN_HAND_CARD_SPACING, OTHER_HANDS_POSITIONS, OTHER_HANDS_SIZES, OTHER_HANDS_ANGLES, OTHER_HANDS_CARD_SPACING, STACK_SIZES, STACK_ANGLES, STACK_POSITIONS, STACK_CARD_DISTANCES
+from code.types.varTypes import Event, GameState
+from code.types.card import Card
+from code.types.player import Player
+from code.handlers.playerHandler import getPlayers
 import os, math
 def initVisuals():
     global font

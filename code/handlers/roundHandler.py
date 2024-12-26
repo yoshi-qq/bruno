@@ -1,12 +1,12 @@
 from time import time as now, sleep
-from ..types.card import Card
-from ..types.player import Player
-from ..handlers.playerHandler import getPlayers
-from ..types.varTypes import GameState, Request
-from ..types import varTypes as v
-from ..handlers.communicationHandler import broadcastGameState, gameState, sendRejection
-from ..handlers import communicationHandler
-from ..config.constants import ACTIONS_PER_TURN, MAX_TURN_LENGTH, PENALTY_CARD_AMOUNT
+from code.types.card import Card
+from code.types.player import Player
+from code.handlers.playerHandler import getPlayers
+from code.types.varTypes import GameState, Request
+from code.types import varTypes as v
+from code.handlers.communicationHandler import broadcastGameState, gameState, sendRejection
+from code.handlers import communicationHandler
+from code.config.constants import ACTIONS_PER_TURN, MAX_TURN_LENGTH, PENALTY_CARD_AMOUNT
 
 def initGameState(players: list[Player], deck: list[Card]):
     global gameState

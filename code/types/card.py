@@ -1,5 +1,5 @@
-from ..utils.dependencies import graphy, pygame
-from ..config.constants import CARD_WIDTH, CARD_HEIGHT, CARD_HOVER_OFFSET
+from code.utils.dependencies import graphy, pygame
+from code.config.constants import CARD_WIDTH, CARD_HEIGHT, CARD_HOVER_OFFSET
 from functools import cache
 
 class Card:

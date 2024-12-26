@@ -1,25 +1,25 @@
 import os, subprocess, importlib, importlib.util, sys
-from constants import ROOT
+from code.config.constants import ROOT
 
 def installPackage(package): #install libraries
     subprocess.check_call([sys.executable, "-m", "pip", "install", package])
 
 def loadCustomPackagesByPath():
     global graphy, networking
-    path = os.path.join(ROOT, "graphy.py")
+    path = os.path.join(ROOT, "dependencies/graphy.py")
     spec = importlib.util.spec_from_file_location("graphy", path)
     graphy = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(graphy)
     
-    path = os.path.join(ROOT, "networking.py")
+    path = os.path.join(ROOT, "dependencies/networking.py")
     spec = importlib.util.spec_from_file_location("networking", path)
     networking = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(networking)
     
 def loadCustomPackagesNormally():
     global graphy, networking
-    import graphy
-    import networking
+    from code.dependencies import graphy
+    from code.dependencies import networking
 
 def loadCustomPackages():
     try:

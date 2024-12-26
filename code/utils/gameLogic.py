@@ -1,8 +1,12 @@
-import visuals, menuing, roundHandler, cardHandler, network
-from constants import START_CARDS_AMOUNT
-from dependencies import pygame, graphy
-from communicationHandler import getGameState
-from playerHandler import getPlayers
+from code.utils import visuals as visuals
+from code.utils import menuing
+from code.handlers import roundHandler 
+from code.handlers import cardHandler
+from code.utils import network
+from code.config.constants import START_CARDS_AMOUNT
+from code.utils.dependencies import pygame, graphy
+from code.handlers.communicationHandler import getGameState
+from code.handlers.playerHandler import getPlayers
 
 running = False
 inGame = False
@@ -13,8 +17,8 @@ def initGameFunctions():
 def startGameFunctions():
     global inGame, running
     running = True
-    while running:
-        outerLoop()
+    while outerLoop():
+        pass
     pygame.quit()
 
 def pygameEventHandler():
@@ -40,10 +44,10 @@ def gameLoop():
     else:
         visuals.drawFromPerspective(getGameState(), next((player for player in getPlayers() if player.id == network.mainObject.name)))
 
-def outerLoop(): # Runs every frame
+def outerLoop(): # Runs every frame, returns False on Quit
     global inGame, currentMenu
     pygameEventHandler()
-    menuing.displayMenu()
+    status = menuing.displayMenu()
     
     if inGame:
         gameLoop()
@@ -53,3 +57,4 @@ def outerLoop(): # Runs every frame
     
     
     visuals.endFrame()
+    return status

@@ -1,7 +1,7 @@
 import random
 from enum import Enum
-from player import Player
-from card import Card
+from code.types.player import Player
+from code.types.card import Card
 
 class menuOperation(Enum):
     OPEN = 1

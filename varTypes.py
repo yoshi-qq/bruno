@@ -1,6 +1,5 @@
 import random
 from enum import Enum
-from collections import deque
 from player import Player
 from card import Card
 
@@ -67,16 +66,20 @@ class skipPlayerEvent(Event):
 
 # Game State (to transmit from host to players)
 class GameState:
-    def __init__(self, players: list[Player], deck: deque[Card]):
+    def __init__(self, players: list[Player], deck: list[Card], stack: list[Card]):
         self.deck = deck
+        self.stack = stack
         self.players: list[Player] = players
         self.turnOrder: list[str] = [player.id for player in self.players ]
         self.turn: str = self.turnOrder[0]
         self.events: list[Event] = []
         self.direction = 1
     
+    # RENDERS
     def generateRenders(self, perspectivePlayerName: str | None = None):
         for card in self.deck:
+            card.generateRenderObject()
+        for card in self.stack:
             card.generateRenderObject()
         for player in self.players:
             for card in player.cards:
@@ -86,21 +89,55 @@ class GameState:
     def removeRenders(self):
         for card in self.deck:
             card.removeRenderObject()
+        for card in self.stack:
+            card.removeRenderObject()
         for player in self.players:
             for card in player.cards:
                 card.removeRenderObject()
         return self
     
+    # TURN
     def setTurn(self, id: str):
         self.turn = id
     
-    def setDeck(self, deck: deque[Card]):
-        self.deck = deck
+    def getTurn(self) -> str:
+        return self.turn
     
     def randomizeTurnOrder(self):
         self.turnOrder = [player.id for player in self.players]
         random.shuffle(self.turnOrder)
         self.turn = self.turnOrder[0]
+    
+    # DECK
+    def setDeck(self, newDeck: list[Card]):
+        self.deck = newDeck
+    
+    def getDeck(self) -> list[Card]:
+        return self.deck
+    
+    def addCardToDeck(self, card: Card):
+        self.deck.append(card)
+    
+    def removeCardFromDeck(self, card: Card):
+        self.deck.remove(card)
+    
+    def drawFromStackToDeck(self):
+        self.stack.append(self.deck[0])
+        self.deck.remove(self.deck[0])
+    
+    # STACK
+    def setStack(self, newStack: list[Card]):
+        self.stack = newStack
+    
+    def getStack(self) -> list[Card]:
+        return self.stack
+    
+    def addCardToStack(self, card: Card):
+        self.stack.append(card)
+    
+    def removeCardFromStack(self, card: Card):
+        self.stack.remove(card)
+
     
     # def updatePlayerStatuses(self, players: list[Player]):
     #     for localPlayer in self.players:

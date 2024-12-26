@@ -6,6 +6,9 @@ def initNetwork():
     global me
     me = None # TODO: change from string to enum
 
+def getConnByPlayerId(playerId: str):
+    return next((client for client in mainObject.clients if client.name == playerId), None)
+
 def addConnection(client):
     playerHandler.addPlayer(client.name)
 

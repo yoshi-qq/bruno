@@ -1,8 +1,7 @@
-from collections import deque
 from constants import COLORS, VALUES, SPECIAL_VALUES, SPECIAL_COLOR
 from player import Player
 from card import Card
-deck = deque([])
+deck = []
 
 def initDeck():
     global deck

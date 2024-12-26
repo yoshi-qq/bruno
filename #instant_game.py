@@ -2,7 +2,7 @@ import subprocess, atexit, os, signal
 
 processes = []
 
-debug = True
+debug = False
 
 def openScript(path):
     if debug:

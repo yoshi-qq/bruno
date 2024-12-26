@@ -1,5 +1,5 @@
 from dependencies import graphy, pygame
-from constants import CARD_HOVER_OFFSET
+from constants import CARD_WIDTH, CARD_HEIGHT, CARD_HOVER_OFFSET
 from functools import cache
 
 class Card:
@@ -26,13 +26,13 @@ class Card:
         
         def drawCorners(self, x, y, size, surface):
             border = 8 * size
-            width, height = size * 82, size * 128
+            width, height = size * CARD_WIDTH, size * CARD_HEIGHT
             symbolSize = 20*size
             graphy.drawNormal(surface, graphy.sprites[self.value][0], x+border, y+border, symbolSize, symbolSize)
             graphy.drawRotated(surface, graphy.sprites[self.value][0], x+width-symbolSize-border, y+height-symbolSize-border, 180, symbolSize, symbolSize, 1)
         
         def drawMiddle(self, x, y, size, surface):
-            width, height = size * 82, size * 128
+            width, height = size * CARD_WIDTH, size * CARD_HEIGHT
             symbolSize = 45*size
             if self.value == "plus4":
                 graphy.drawNormal(surface, graphy.sprites[self.value + "_big"][0], x+width/2-symbolSize/2, y+height/2-symbolSize/2, symbolSize, symbolSize)
@@ -44,7 +44,7 @@ class Card:
 
         @cache
         def createCardSurface(self, x = 0, y = 0, size = 1):
-            w, h = size * 82, size * 128
+            w, h = size * CARD_WIDTH, size * CARD_HEIGHT
             subSurface = pygame.Surface((w*graphy.rx, h*graphy.ry), pygame.SRCALPHA)
             graphy.drawNormal(surface = subSurface, img = graphy.sprites[self.color][0], x=x, y=y, width=w, height=h)
             graphy.drawNormal(surface = subSurface, img = graphy.sprites["card_extra"][0], x=x, y=y, width=w, height=h)

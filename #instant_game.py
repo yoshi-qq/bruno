@@ -3,15 +3,22 @@ import subprocess, atexit, os, signal
 processes = []
 
 def openScript(path):
-    processes.append(subprocess.Popen(["start", "cmd", "/k", f"python {path}"], shell=True))
+    processes.append(subprocess.Popen(
+        ["python", path],
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE
+    ))
 
 openScript("instant_host.py")
 
-for i in range(3):
+for i in range(4):
     openScript("instant_join.py")
 
 def closeProcesses():
     for process in processes:
-        os.killpg(os.getpgid(process.pid), signal.SIGTERM)
+        os.kill(process)
 
-atexit.register
+atexit.register(closeProcesses)
+
+while True:
+    pass

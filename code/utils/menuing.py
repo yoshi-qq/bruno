@@ -6,7 +6,7 @@ from code.config.constants import RGB_COLORS, OWN_HAND_POSITION, OWN_HAND_SIZE, 
 from code.utils import visuals
 from code.utils import network
 from code.utils import gameLogic
-import sys, socket
+import socket
 
 lastMenu: str = None
 currentMenu: str = "main" # TODO: make menu an enum
@@ -117,6 +117,15 @@ def drawSettingsMenu(operation: menuOperation):
         case menuOperation.DRAW:
             pass
 
+def drawExitMenu(operation: menuOperation):
+    match operation:
+        case menuOperation.OPEN:
+            pass
+        case menuOperation.CLOSE:
+            pass
+        case menuOperation.DRAW:
+            pass
+
 # (Name: str -> Function: function) matching for menu drawing functions
 menuFunctions = {
     None: lambda action: None,
@@ -124,10 +133,10 @@ menuFunctions = {
     "lobby": drawLobbyMenu,
     "game": drawGameMenu,
     "settings": drawSettingsMenu, # TODO: add settings menu
-    "exit": sys.exit,  # TODO: replace with proper exit function
+    "exit": drawExitMenu,  # TODO: replace with proper exit function
 }
 
-def displayMenu():
+def displayMenu() -> bool:
     global lastMenu, currentMenu
     if lastMenu != currentMenu:
         menuFunctions[lastMenu](menuOperation.CLOSE)
@@ -135,3 +144,5 @@ def displayMenu():
         print(f"Switched from {lastMenu} to {currentMenu}")
         lastMenu = currentMenu
     menuFunctions[currentMenu](menuOperation.DRAW)
+    
+    return currentMenu != "exit"

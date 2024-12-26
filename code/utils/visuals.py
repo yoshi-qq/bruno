@@ -1,5 +1,5 @@
 from code.utils.dependencies import graphy, pygame
-from code.config.constants import ROOT, CARD_WIDTH, CARD_HEIGHT, CARD_BACK_ASSET, CARD_BASE_WIDTH, HAND_BASE_HARD_WIDTH, HAND_BASE_SOFT_WIDTH, OWN_HAND_POSITION, OWN_HAND_SIZE, OWN_HAND_ANGLE, OWN_HAND_CARD_SPACING, OTHER_HANDS_POSITIONS, OTHER_HANDS_SIZES, OTHER_HANDS_ANGLES, OTHER_HANDS_CARD_SPACING, STACK_SIZES, STACK_ANGLES, STACK_POSITIONS, STACK_CARD_DISTANCES
+from code.config.constants import ROOT, FONT, FONT2, IMAGE_SPRITES, CARD_WIDTH, CARD_HEIGHT, CARD_BACK_ASSET, CARD_BASE_WIDTH, HAND_BASE_HARD_WIDTH, HAND_BASE_SOFT_WIDTH, OWN_HAND_POSITION, OWN_HAND_SIZE, OWN_HAND_ANGLE, OWN_HAND_CARD_SPACING, OTHER_HANDS_POSITIONS, OTHER_HANDS_SIZES, OTHER_HANDS_ANGLES, OTHER_HANDS_CARD_SPACING, STACK_SIZES, STACK_ANGLES, STACK_POSITIONS, STACK_CARD_DISTANCES
 from code.types.varTypes import Event, GameState
 from code.types.card import Card
 from code.types.player import Player
@@ -7,9 +7,9 @@ from code.handlers.playerHandler import getPlayers
 import os, math
 def initVisuals():
     global font
-    graphy.init(file = __file__, fps = 60, fontPath = os.path.join(ROOT, "font\\unifont.otf"),fullscreen = False, singleSizeOn = True, windowName = "brUNO", spriteFolder = os.path.join(ROOT, "assets"), windowIcon = "cardback")
+    graphy.init(file = __file__, fps = 60, fontPath = FONT2, fullscreen = False, singleSizeOn = True, windowName = "brUNO", spriteFolder = os.path.join(ROOT, IMAGE_SPRITES), windowIcon = "cardback")
     graphy.postDraw = drawFPS
-    font = pygame.font.Font(ROOT + "/font/fixed_sys.ttf", 30)
+    font = pygame.font.Font(FONT, 30)
     
 def drawDrawPile(deck: list[Card]):
     drawCardStack(deck, False, 0)

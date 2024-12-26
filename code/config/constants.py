@@ -1,5 +1,12 @@
 import os, sys
 ROOT = os.path.dirname(os.path.abspath(sys.modules['__main__'].__file__))
+ASSETS = os.path.join(ROOT, "assets")
+IMAGE_SPRITES = os.path.join(ASSETS, "sprites/images")
+FONTS = os.path.join(ASSETS, "fonts")
+ICONS = os.path.join(ASSETS, "icons")
+
+FONT = os.path.join(FONTS, "fixed_sys.ttf")
+FONT2 = os.path.join(FONTS, "unifont.otf")
 
 # BASE VISUAL
 MIDDLE = (960, 540)

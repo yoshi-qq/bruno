@@ -9,12 +9,37 @@ class menuOperation(Enum):
     DRAW = 0
     CLOSE = -1
 
+# REQUEST TYPES (to transmit from player to host)
+class Request:
+    def __init__(self):
+        self.author = None
+
+class playCardRequest(Request):
+    def __init__(self, playedCard: Card) -> None:
+        super().__init__()
+        self.playedCard = playedCard
+
+class drawCardRequest(Request):
+    def __init__(self) -> None:
+        super().__init__()
+
+class shoutBrunoRequest(Request):
+    def __init__(self) -> None:
+        super().__init__()
+
+class colorChangeRequest(Request):
+    def __init__(self, newColor: str) -> None:
+        super().__init__()
+        self.newColor = newColor
+
+# Response (to transmit from host to player)
+
 # EVENT TYPES
 class Event:
     def __init__(self, target: str) -> None:
         self.target = target
 
-class CardPlayEvent(Event):
+class playCardEvent(Event):
     def __init__(self, playerId: str, playedCard: Card) -> None:
         super().__init__(playerId)
         self.playedCard = playedCard

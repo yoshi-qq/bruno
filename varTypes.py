@@ -13,6 +13,9 @@ class menuOperation(Enum):
 class Request:
     def __init__(self):
         self.author = None
+    def addAuthor(self, author):
+        self.author = author
+        return self
 
 class playCardRequest(Request):
     def __init__(self, playedCard: Card) -> None:

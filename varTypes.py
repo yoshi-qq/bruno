@@ -9,16 +9,42 @@ class menuOperation(Enum):
     DRAW = 0
     CLOSE = -1
 
-class event:
-    pass
+# EVENT TYPES
+class Event:
+    def __init__(self, target: str) -> None:
+        self.target = target
 
+class CardPlayEvent(Event):
+    def __init__(self, playerId: str, playedCard: Card) -> None:
+        super().__init__(playerId)
+        self.playedCard = playedCard
+
+class drawCardsEvent(Event):
+    def __init__(self, playerId: str, cardAmount: int) -> None:
+        super().__init__(playerId)
+        self.cardAmount = cardAmount
+
+class shoutBrunoEvent(Event):
+    def __init__(self, playerId: str) -> None:
+        super().__init__(playerId)
+
+class colorChangeEvent(Event):
+    def __init__(self, playerId: str, newColor: str) -> None:
+        super().__init__(playerId)
+        self.newColor = newColor
+
+class skipPlayerEvent(Event):
+    def __init__(self, playerId: str) -> None:
+        super().__init__(playerId)
+
+# Game State (to transmit from host to players)
 class GameState:
     def __init__(self, players: list[Player], deck: deque[Card]):
         self.deck = deck
         self.players: list[Player] = players
         self.turnOrder: list[str] = [player.id for player in self.players ]
         self.turn: str = self.turnOrder[0]
-        self.events: list[event] = []
+        self.events: list[Event] = []
         self.direction = 1
     
     def generateRenders(self, perspectivePlayerName: str | None = None):
@@ -60,9 +86,9 @@ class GameState:
     def changeDirection(self):
         self.direction *= -1
     
-    def addEvent(self, event: event):
+    def addEvent(self, event: Event):
         self.events.append(event)
     
-    def resolveEvent(self, event: event):
+    def resolveEvent(self, event: Event):
         self.events.remove(event)
     

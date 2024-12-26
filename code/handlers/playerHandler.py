@@ -1,4 +1,4 @@
-from player import Player
+from ..types.player import Player
 
 players: list[Player] = []
 

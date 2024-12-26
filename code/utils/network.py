@@ -1,6 +1,6 @@
 from dependencies import networking
-from communicationHandler import initCommunication
-import playerHandler
+from ..handlers.communicationHandler import initCommunication
+from ..handlers import playerHandler
 
 def initNetwork():
     global me

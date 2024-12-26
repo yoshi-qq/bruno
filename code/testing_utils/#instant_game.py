@@ -1,4 +1,4 @@
-import subprocess, atexit, os, signal
+import subprocess, atexit, os
 
 processes = []
 

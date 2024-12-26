@@ -1,8 +1,12 @@
-import visuals, menuing, roundHandler, cardHandler, network
-from constants import START_CARDS_AMOUNT
-from dependencies import pygame, graphy
-from communicationHandler import getGameState
-from playerHandler import getPlayers
+from ..utils import visuals as visuals
+from ..utils import menuing
+from ..handlers import roundHandler 
+from ..handlers import cardHandler
+from ..utils import network
+from ..config.constants import START_CARDS_AMOUNT
+from ..utils.dependencies import pygame, graphy
+from ..handlers.communicationHandler import getGameState
+from ..handlers.playerHandler import getPlayers
 
 running = False
 inGame = False

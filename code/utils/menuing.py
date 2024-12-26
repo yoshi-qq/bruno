@@ -1,10 +1,12 @@
-from varTypes import menuOperation
-from communicationHandler import initCommunication
-from dependencies import graphy
-from card import Card
-from constants import RGB_COLORS, OWN_HAND_POSITION, OWN_HAND_SIZE, DEFAULT_IP, DEFAULT_PORT
+from ..types.varTypes import menuOperation
+from ..handlers.communicationHandler import initCommunication
+from ..utils.dependencies import graphy
+from ..types.card import Card
+from ..config.constants import RGB_COLORS, OWN_HAND_POSITION, OWN_HAND_SIZE, DEFAULT_IP, DEFAULT_PORT
+from ..utils import visuals
+from ..utils import network
+from ..utils import gameLogic
 import sys, socket
-import visuals, network, gameLogic
 
 lastMenu: str = None
 currentMenu: str = "main" # TODO: make menu an enum

@@ -1,6 +1,6 @@
-from main import init, start
-from constants import DEFAULT_IP, DEFAULT_PORT
-from menuing import joinButton
+from ..main import init, start
+from ..config.constants import DEFAULT_IP, DEFAULT_PORT
+from ..utils.menuing import joinButton
 
 def intercept():
     joinButton(DEFAULT_IP, DEFAULT_PORT)

@@ -1,5 +1,5 @@
-import os
-ROOT = os.path.dirname(os.path.abspath(__file__))
+import os, sys
+ROOT = os.path.dirname(os.path.abspath(sys.modules['__main__'].__file__))
 
 # BASE VISUAL
 MIDDLE = (960, 540)

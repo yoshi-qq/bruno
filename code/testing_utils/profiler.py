@@ -1,5 +1,5 @@
 import cProfile, pstats
-from main import main
+from ..main import main
 
 def profile(function):
     profiler = cProfile.Profile()

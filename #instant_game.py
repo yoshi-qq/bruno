@@ -2,12 +2,17 @@ import subprocess, atexit, os, signal
 
 processes = []
 
+debug = True
+
 def openScript(path):
-    processes.append(subprocess.Popen(
-        ["python", path],
-        stdout=subprocess.PIPE,
-        stderr=subprocess.PIPE
-    ))
+    if debug:
+        processes.append(subprocess.Popen(["start", "cmd", "/k", f"python {path}"], shell=True))
+    else:
+        processes.append(subprocess.Popen(
+            ["python", path],
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+        ))
 
 openScript("instant_host.py")
 

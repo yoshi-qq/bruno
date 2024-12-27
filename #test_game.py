@@ -38,7 +38,7 @@ def instant_host():
 
     init()
     host()
-    time.sleep(1)
+    time.sleep(1.5)
     startGame()
     start()
 

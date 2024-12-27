@@ -3,6 +3,10 @@ from screeninfo import get_monitors
 from pygame.locals import HWSURFACE, DOUBLEBUF, FULLSCREEN
 from ctypes.wintypes import HWND, HANDLE, UINT, HGLOBAL, LPVOID
 
+HD = (1920, 1080)
+QHD = (2560, 1440)
+FOUR_K = (3840, 2160)
+
 activeInput = None
 running = False
 clickEvent = False

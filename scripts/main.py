@@ -5,11 +5,11 @@
     4. plan next features needed to continue
 """
 # Imports
-from code.utils.network import initNetwork
-from code.utils.visuals import initVisuals
+from scripts.utils.network import initNetwork
+from scripts.utils.visuals import initVisuals
 
 # Game functions
-import code.utils.gameLogic as g
+import scripts.utils.gameLogic as g
 
 def init():
     initNetwork()

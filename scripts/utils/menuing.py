@@ -1,11 +1,11 @@
-from code.types.varTypes import menuOperation
-from code.handlers.communicationHandler import initCommunication
-from code.utils.dependencies import graphy
-from code.types.card import Card
-from code.config.constants import RGB_COLORS, OWN_HAND_POSITION, OWN_HAND_SIZE, DEFAULT_IP, DEFAULT_PORT
-from code.utils import visuals
-from code.utils import network
-from code.utils import gameLogic
+from scripts.types.varTypes import menuOperation
+from scripts.handlers.communicationHandler import initCommunication
+from scripts.utils.dependencies import graphy
+from scripts.types.card import Card
+from scripts.config.constants import RGB_COLORS, OWN_HAND_POSITION, OWN_HAND_SIZE, DEFAULT_IP, DEFAULT_PORT
+from scripts.utils import visuals
+from scripts.utils import network
+from scripts.utils import gameLogic
 import socket
 
 lastMenu: str = None
@@ -36,6 +36,13 @@ def leaveGameButton():
     global currentMenu
     network.leave()
     currentMenu = "main"
+
+def getMenu() -> str:
+    return currentMenu
+
+def setMenu(menu: str) -> None:
+    global currentMenu
+    currentMenu = menu
 
 def drawMainMenu(operation: menuOperation):
     global buttons
@@ -86,8 +93,9 @@ def drawLobbyMenu(operation: menuOperation):
                 for i, client in enumerate(network.mainObject.clients): # TODO: move logic to network & add getPlayers function to be used here instead
                     ip, port = client.conn.getpeername()
                     
-                    buttons.append(banner := graphy.RenderTextButton(x = graphy.middle[0], color = RGB_COLORS[i], borderColor = (0, 0, 0), textColor = (0, 0, 0), y = 200 + i * 150, width = 800, height = 80, middle = True, text = f"{ip}:{port}", temporary = True))
-                    buttons.append(playerNumbers := graphy.RenderTextButton(drawType = "circ", x = banner.x - banner.width//(3/2) - 100, y = banner.y, text = str(i+1), color = RGB_COLORS[i], borderColor = (0, 0, 0), textColor = (0, 0, 0), width = banner.height*1.2, height = banner.height*1.2, middle = True, temporary = True))
+                    # temporary -> not added to buttons list
+                    banner = graphy.RenderTextButton(x = graphy.middle[0], color = RGB_COLORS[i], borderColor = (0, 0, 0), textColor = (0, 0, 0), y = 200 + i * 150, width = 800, height = 80, middle = True, text = f"{ip}:{port}", temporary = True)
+                    playerNumbers = graphy.RenderTextButton(drawType = "circ", x = banner.x - banner.width//(3/2) - 100, y = banner.y, text = str(i+1), color = RGB_COLORS[i], borderColor = (0, 0, 0), textColor = (0, 0, 0), width = banner.height*1.2, height = banner.height*1.2, middle = True, temporary = True)
             else:
                 pass
                 # if hasattr(network.mainObject, 'clients'): # TODO: 1. find out what this does 2. move it to network and replace this with an adequately named function

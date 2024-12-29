@@ -1,6 +1,6 @@
-from code.config.constants import COLORS, VALUES, SPECIAL_VALUES, SPECIAL_COLOR
-from code.types.player import Player
-from code.types.card import Card
+from scripts.config.constants import COLORS, VALUES, SPECIAL_VALUES, SPECIAL_COLOR
+from scripts.types.player import Player
+from scripts.types.card import Card
 deck = []
 
 def initDeck():

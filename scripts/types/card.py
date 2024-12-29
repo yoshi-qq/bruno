@@ -1,5 +1,5 @@
-from code.utils.dependencies import graphy, pygame
-from code.config.constants import CARD_WIDTH, CARD_HEIGHT, CARD_HOVER_OFFSET
+from scripts.utils.dependencies import graphy, pygame
+from scripts.config.constants import CARD_WIDTH, CARD_HEIGHT, CARD_HOVER_OFFSET
 from functools import cache
 
 class Card:
@@ -22,7 +22,8 @@ class Card:
                 self.renderObject.unHoverArguments = (0, 0, 1, 0)
 
         def removeRenderObject(self):
-            del self.renderObject
+            if hasattr(self, "renderObject"):
+                del self.renderObject
         
         def drawCorners(self, x, y, size, surface):
             border = 8 * size

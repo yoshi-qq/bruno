@@ -1,5 +1,5 @@
 import os, subprocess, importlib, importlib.util, sys
-from code.config.constants import ROOT
+from scripts.config.constants import ROOT
 
 def installPackage(package): #install libraries
     subprocess.check_call([sys.executable, "-m", "pip", "install", package])
@@ -18,8 +18,8 @@ def loadCustomPackagesByPath():
     
 def loadCustomPackagesNormally():
     global graphy, networking
-    from code.dependencies import graphy
-    from code.dependencies import networking
+    from scripts.dependencies import graphy
+    from scripts.dependencies import networking
 
 def loadCustomPackages():
     try:

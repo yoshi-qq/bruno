@@ -1,12 +1,12 @@
-from code.utils import visuals as visuals
-from code.utils import menuing
-from code.handlers import roundHandler 
-from code.handlers import cardHandler
-from code.utils import network
-from code.config.constants import START_CARDS_AMOUNT
-from code.utils.dependencies import pygame, graphy
-from code.handlers.communicationHandler import getGameState
-from code.handlers.playerHandler import getPlayers
+from scripts.utils import visuals as visuals
+from scripts.utils import menuing
+from scripts.handlers import roundHandler 
+from scripts.handlers import cardHandler
+from scripts.utils import network
+from scripts.config.constants import START_CARDS_AMOUNT
+from scripts.utils.dependencies import pygame, graphy
+from scripts.handlers.communicationHandler import getGameState
+from scripts.handlers.playerHandler import getPlayers
 
 running = False
 inGame = False
@@ -35,7 +35,8 @@ def startGame(): # Starts a game with 2 to 4 players from the hosts machine
     global deck, inGame
     cardHandler.initDeck()
     cardHandler.drawCardsToAllPlayers(getPlayers(), START_CARDS_AMOUNT)
-    roundHandler.initGameState(getPlayers(), cardHandler.deck)
+    roundHandler.initGameState(getPlayers(), cardHandler.deck)    
+    menuing.setMenu("game")
     inGame = True
 
 def gameLoop():
@@ -52,7 +53,7 @@ def outerLoop(): # Runs every frame, returns False on Quit
     if inGame:
         gameLoop()
     elif getGameState() is not None:
-        currentMenu = "game"
+        menuing.setMenu("game")
         inGame = True
     
     

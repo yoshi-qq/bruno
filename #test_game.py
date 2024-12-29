@@ -28,10 +28,10 @@ atexit.register(close_processes)
 
 def instant_host():
     import time
-    from code.main import init, start
-    from code.config.constants import DEFAULT_IP, DEFAULT_PORT
-    from code.utils.menuing import hostButton
-    from code.utils.gameLogic import startGame
+    from scripts.main import init, start
+    from scripts.config.constants import DEFAULT_IP, DEFAULT_PORT
+    from scripts.utils.menuing import hostButton
+    from scripts.utils.gameLogic import startGame
 
     def host():
         hostButton(DEFAULT_IP, DEFAULT_PORT)
@@ -43,9 +43,9 @@ def instant_host():
     start()
 
 def instant_join():
-    from code.main import init, start
-    from code.config.constants import DEFAULT_IP, DEFAULT_PORT
-    from code.utils.menuing import joinButton
+    from scripts.main import init, start
+    from scripts.config.constants import DEFAULT_IP, DEFAULT_PORT
+    from scripts.utils.menuing import joinButton
 
     def intercept():
         joinButton(DEFAULT_IP, DEFAULT_PORT)

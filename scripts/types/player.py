@@ -1,5 +1,5 @@
 import random
-from code.types.card import Card
+from scripts.types.card import Card
 class Player:
     def __init__(self, id: str, cards: list[Card] | int = [], deckToDrawFrom: list[Card] = None):
         self.id = id

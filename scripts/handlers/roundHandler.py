@@ -11,7 +11,7 @@ from scripts.config.constants import ACTIONS_PER_TURN, MAX_TURN_LENGTH, PENALTY_
 def initGameState(players: list[Player], deck: list[Card]):
     global gameState
     gameState = GameState(players, deck, [])
-    gameState.drawFromStackToDeck()
+    gameState.drawFromStackToDeck(1)
 
 def startTurn():
     # TODO: add full turn functionality

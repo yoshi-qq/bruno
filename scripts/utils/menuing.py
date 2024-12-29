@@ -110,7 +110,7 @@ def drawGameMenu(operation: menuOperation):
     match operation:
         case menuOperation.OPEN:
             buttons = []
-            background = graphy.RenderImage(imageName = "background", width=graphy.nativeResolution[0], height=graphy.nativeResolution[1])
+            background = graphy.RenderImage(imageName = "background", width=graphy.nativeResolution[0], height=graphy.nativeResolution[1], priority=0)
         case menuOperation.CLOSE:
             pass
         case menuOperation.DRAW:

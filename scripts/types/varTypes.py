@@ -121,9 +121,10 @@ class GameState:
     def removeCardFromDeck(self, card: Card):
         self.deck.remove(card)
     
-    def drawFromStackToDeck(self):
-        self.stack.append(self.deck[0])
-        self.deck.remove(self.deck[0])
+    def drawFromStackToDeck(self, amount: int = 1):
+        for i in range(amount):
+            self.stack.append(self.deck[0])
+            self.deck.pop(0)
     
     # STACK
     def setStack(self, newStack: list[Card]):
